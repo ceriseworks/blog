@@ -10,11 +10,12 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-	site: 'https://cerise.works/blog', // Write here your website url
+	site: 'https://www.cerise.works', // Public origin: the blog is served at www.cerise.works/blog through a proxy
 	author: 'Cerise', // Site author
 	title: 'Cerise Blog', // Site title.
-	description: 'Transform Your Business With Expert Technology', // Description to display in the meta tags
-	lang: 'en-GB',
+	description:
+		'Notes from Cerise, a small product studio, on building, fixing and shipping software for businesses.', // Description to display in the meta tags
+	lang: 'en',
 	ogLocale: 'en_GB',
 	shareMessage: 'Share this post', // Message to share a post on social media
 	paginationSize: 6 // Number of posts per page

@@ -11,8 +11,11 @@ export interface Props {
 }
 
 const { title, description = siteConfig.description, ogImage, articleDate } = Astro.props
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const socialImageURL = new URL(ogImage ? ogImage : '/open-graph.png', Astro.url).href
+// This app is proxied under www.cerise.works: its home page lives at /blog/, every other path is unchanged.
+const publicPath = Astro.url.pathname === '/' ? '/blog/' : Astro.url.pathname
+const canonicalURL = new URL(publicPath, Astro.site).href
+// The default share image is the main site's, so it resolves on www.cerise.works.
+const socialImageURL = new URL(ogImage ? ogImage : '/og.png', Astro.site).href
 
 const titleSeparator = '•'
 
@@ -44,7 +47,8 @@ import { AstroFont } from 'astro-font'
 
 <!-- Open Graph / Facebook -->
 <meta property='og:type' content={articleDate ? 'article' : 'website'} />
-<meta property='og:url' content={Astro.url} />
+<meta property='og:url' content={canonicalURL} />
+<meta property='og:site_name' content='Cerise' />
 <meta property='og:title' content={title} />
 <meta property='og:description' content={description} />
 <meta property='og:image' content={socialImageURL} />
@@ -59,7 +63,7 @@ import { AstroFont } from 'astro-font'
 
 <!-- Twitter -->
 <meta property='twitter:card' content='summary_large_image' />
-<meta property='twitter:url' content={Astro.url} />
+<meta property='twitter:url' content={canonicalURL} />
 <meta property='twitter:title' content={title} />
 <meta property='twitter:description' content={description} />
 <meta property='twitter:image' content={socialImageURL} />
